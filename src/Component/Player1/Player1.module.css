@@ -1,0 +1,114 @@
+* {
+    box-sizing: border-box;
+}
+
+.Player1 {
+    margin-left: 15%;
+    width: 35%;
+    height: 80%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+.ActivePlayer {
+    background-color: #ccc;
+} 
+  
+.Player1 h1{
+display: inline-block;
+margin-top: 50px;
+margin-left: 30px;
+/* width: 300px;
+background-color: darkblue; */
+}
+
+.Active1 {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: rgb(236, 67, 67);
+    border-radius: 50%;
+    margin-bottom: 2.5%;
+    margin-left: 10px;
+}
+
+/* .Active1 {
+display: none;
+width: 10px;
+height: 10px;
+margin-bottom: 5px;
+border-radius: 50%;
+background-color: rgb(236, 67, 67);
+} */
+
+.PointsPlayer1 {
+margin: 0;
+padding: 0;
+margin-bottom: 30px;
+font-size: 40px;
+font-weight: 100;
+}
+
+/* .dice-img {
+width: 80px;
+height: auto;
+} */
+
+.CurrentPoints {
+margin: 0 auto;
+width: 120px;
+height: 100px;
+background-color: rgb(236, 67, 67);
+}
+
+.CurrentPoints p {
+padding-top: 8px;
+}
+
+.CurrentPointsPlayer1 {
+padding: 0;
+margin: 0;
+font-size: 28px;
+}
+
+#new-game {
+display: inline-block;
+position: relative;
+cursor: pointer;
+color: rgb(236, 67, 67);
+top: -280px;
+right: 50%;
+width: 100px;
+}
+
+
+#roll-dice {
+position: relative;
+cursor: pointer;
+color: rgb(236, 67, 67);
+top: -120px;
+right: 50px;
+width: 100px;
+
+}
+
+#hold {
+display: block;
+position: relative;
+cursor: pointer;
+color: rgb(236, 67, 67);
+top: -220px;
+right: 50px;
+width: 100px;
+}
+
+#dice-container {
+position: relative;
+color: rgb(236, 67, 67);
+height: 60px;
+width: 60px;
+background-image: url('https://i.imgur.com/EA2qvGZ.png');
+background-size: cover;
+top: -350px;
+right: 30px;
+}
