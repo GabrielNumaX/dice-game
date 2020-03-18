@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import css from './App.module.css';
 
-// import p1Css from './Component/Player1/Player1.module.css';
+import { BrowserRouter } from 'react-router-dom';
 
 import Player1 from './Component/Player1/Player1';
 import Player2 from './Component/Player2/Player2';
@@ -12,6 +12,7 @@ import img03 from './Utils/03.png';
 import img04 from './Utils/04.png';
 import img05 from './Utils/05.png';
 import img06 from './Utils/06.png';
+
 
 class App extends Component {
 
@@ -206,47 +207,46 @@ class App extends Component {
   render() {
     
     return (
-      <div className={css.App}>
 
-        {/* <div className={css.Container}> */}
-            
-        <Player1  p1Title={this.state.player1Title}
-                  p1Total={this.state.player1Total}
-                  p1Current={this.state.player1Current} 
-                  p1Active={this.state.player1Active}>
-                    
-          </Player1>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      
+        <div className={css.App}>
+              
+          <Player1  p1Title={this.state.player1Title}
+                    p1Total={this.state.player1Total}
+                    p1Current={this.state.player1Current} 
+                    p1Active={this.state.player1Active}>
+                      
+            </Player1>
 
-            
-          <Player2  p2Title={this.state.player2Title}
-                    p2Total={this.state.player2Total}
-                    p2Current={this.state.player2Current}
-                    p2Active={this.state.player2Active}></Player2>
+              
+            <Player2  p2Title={this.state.player2Title}
+                      p2Total={this.state.player2Total}
+                      p2Current={this.state.player2Current}
+                      p2Active={this.state.player2Active}></Player2>
 
-          <div className={css.Controls}>
-            <div> 
-              <h4 className={css.NewGame} onClick={this.newGame}>New Game</h4>
-              <h4 className={css.RollDice} 
-                  // onClick={() => {this.rollDice(); this.winner()}}>
-                  onClick={this.rollDice}>
-                    Roll Dice
-              </h4>
-              <h4 className={css.Hold} onClick={this.hold}>Hold</h4>            
-            </div>
-            
+            <div className={css.Controls}>
+              <div> 
+                <h4 className={css.NewGame} onClick={this.newGame}>New Game</h4>
+                <h4 className={css.RollDice} 
+                    onClick={this.rollDice}>
+                      Roll Dice
+                </h4>
+                <h4 className={css.Hold} onClick={this.hold}>Hold</h4>            
+              </div>
+              
 
-            <div className={css.DiceContainer}>
-              <img className={css.Dice}
-                // src="https://i.imgur.com/EA2qvGZ.png"
-                // src={require(`./Utils/${this.state.dice}`)}  
-                // src={require('./Utils/'+this.state.dice+'.png')}
-                src={this.state.dice}
-                alt="dice"></img>
-            </div>  
+              <div className={css.DiceContainer}>
+                <img className={css.Dice}
+                  src={this.state.dice}
+                  alt="dice"></img>
+              </div>  
 
-          </div> 
-        {/* </div> */}
-      </div>
+            </div> 
+          
+        </div>  
+      
+      </BrowserRouter>
       
     );  
   }
