@@ -6,6 +6,13 @@ import css from './App.module.css';
 import Player1 from './Component/Player1/Player1';
 import Player2 from './Component/Player2/Player2';
 
+import img01 from './Utils/01.png';
+import img02 from './Utils/02.png';
+import img03 from './Utils/03.png';
+import img04 from './Utils/04.png';
+import img05 from './Utils/05.png';
+import img06 from './Utils/06.png';
+
 class App extends Component {
 
   state = {
@@ -17,192 +24,136 @@ class App extends Component {
     player2Current: 0,
     player1Active: true,
     player2Active: false,
-    diceArr: ['https://i.imgur.com/m9mb3cx.png',
-             'https://i.imgur.com/EA2qvGZ.png',
-             'https://i.imgur.com/qaekzKO.png',
-             'https://i.imgur.com/qbqvQvB.png', 
-             'https://i.imgur.com/eeBcrqU.png', 
-             'https://i.imgur.com/vzksTKQ.png'],
-
-    dice: null,
-    point: null,
+    diceArr: [img01, img02, img03, img04, img05, img06], 
+    dice: '',
+    gameOn: false,
   }
 
   componentDidMount() {
 
-
-    this.rollDice();
-
-    this.setState({
-      player1Current: 0
-    })
-  }
-
-  // componentDidUpdate(prevProps, prevState) {
-
-  //   // console.log('prev');
-  //   console.log(prevState.player1Current);
-  //   console.log(prevState.player1Total);
-  //   // console.log('state');
-  //   // console.log(this.state.player1Current);
-  //   // console.log(this.state.player1Total);
-
-  //   console.log(prevState.player1Total + prevState.player1Current);
-
-  //   if((prevState.player1Total + this.state.player1Current) >= 60){
-
-  //     this.winner(prevState.player1Active, prevState.player2Active);
-  //   }
-  //   else if((prevState.player2Total + this.state.player2Current) >= 60){
-
-  //     this.winner(prevState.player1Active, prevState.player2Active);
-  //   }
-  // }
-
-  shouldComponentUpdate(nextProps, nextState) {
-
-    console.log('shouldUp');
-    console.log(nextState.player1Current);
-    console.log(nextState.player1Total);
-    
-    console.log('suma')
-    console.log(nextState.player1Total + nextState.player1Current);
-
-    // no anda la foto por las llamadas
-    // si no anda esto meto redux ya foe
-
-    if((nextState.player1Total + nextState.player1Current) >= 60) {
-
-      this.winner(this.state.player1Active, this.state.player2Active);
-
-      return true;
-    }
-    else{
-      return false;
-    }
-
-    // return true;
-
-  }
-
-  winner = (p1, p2) => {
-
-
-    if(p1){
-
-      console.log('winner 1  if');
-
-      this.setState({
-        player1Title: 'Winner!!!'
-      })
-    }
-    
-    else if(p2){
-
-      this.setState({
-        player2Title: 'Winner!!!'
-      })
-    }
-  }
-
-  rollDice = () => {
-    
     const arrPos = Math.floor(Math.random() * (6 - 1 + 1) + 1);
 
     this.setState({
       dice: this.state.diceArr[arrPos-1],
+      gameOn: true,
     });
+  }
 
-    // check if Player1 Active
-    if(this.state.player1Active){
+  componentDidUpdate(prevProps, prevState) {
 
-      // sets dice
+    // para manejar los setState estan las siguientes condiciones
+    //que va cambiando los estados segun la condicion
+    //por ejemplo gameOn cambia en dos condiciones porque sino habia que apretar
+    //dos veces newGame para que vuelva a cero
+    //no es lo ideal pero FUNCIONA
+
+    //prestar ATENCION A ESTAS CONDICIONES QUE SON LAS QUE EVITAN EL INFINITE LOOP DE RE RENDERS
+    // prevState.player1Current !== this.state.player1Current... etc
+
+    if((prevState.player1Total + this.state.player1Current) >= 60 && prevState.player1Current !== this.state.player1Current){
+
       this.setState({
-        player1Current: arrPos
+        player1Title: 'Winner!!!',
+        player1Total: prevState.player1Total + this.state.player1Current,
+        gameOn: false
       })
 
-      //if dice = 1
-      if(arrPos === 1){
+    }
+    else if((prevState.player2Total + this.state.player2Current) >= 60 && prevState.player2Current !== this.state.player2Current){
 
-        // clears current points
-        // switches players
+      this.setState({
+        player2Title: 'Winner!!!',
+        player2Total: prevState.player2Total + this.state.player2Current,
+        gameOn: false
+      })
+    }
+
+    if(prevState.gameOn === false && this.state.gameOn === true){
+
+      if((prevState.player1Title !== this.state.player1Title) || (prevState.player2Title !== this.state.player2Title))
+
+      this.setState({
+        player1Title: 'Player1',
+        player2Title: 'Player2',
+        player1Total: 0,
+        player2Total: 0,
+        gameOn: true
+      });
+    }
+  } //end didUpdate
+
+  rollDice = () => {
+
+    if(this.state.gameOn){
+
+      const arrPos = Math.floor(Math.random() * (6 - 1 + 1) + 1);
+
+      this.setState({
+        dice: this.state.diceArr[arrPos-1],
+      });
+
+      // check if Player1 Active
+      if(this.state.player1Active){
+
+        // sets dice
         this.setState({
-          player1Current: 0,
-          player1Active: !this.state.player1Active,
-          player2Active: !this.state.player2Active
-        })     
-      }
-      // else adds points to current
-      else {
+          player1Current: arrPos
+        });
 
-        this.setState({
-              player1Current: this.state.player1Current + arrPos,
-            })
+        //if dice = 1
+        if(arrPos === 1){
 
-        console.log(this.state.player1Total + this.state.player1Current);
-        //  check if >= 60, sets winner and resets counters
-        if((this.state.player1Current + this.state.player1Total) >= 60){
-
-          console.log('plus 60');
-
-          // console.log(this.state.player1Total + this.state.player1Current);
-
+          // clears current points
+          // switches players
           this.setState({
-            player1Title: 'Winner!!!',
-          })
-
-          return null;
+            player1Current: 0,
+            player1Active: !this.state.player1Active,
+            player2Active: !this.state.player2Active
+          })     
         }
+        // else adds points to current
         else {
 
           this.setState({
-            player1Current: this.state.player1Current + arrPos
+                player1Current: this.state.player1Current + arrPos,
+          });
+        }
+      }
+
+      // this is IF player2 is active
+      else {
+        this.setState({
+          player2Current: arrPos
+        })
+
+        // sets dice
+        this.setState({
+          play2Current: arrPos
+        })
+
+        //if dice = 1
+        if(arrPos === 1){
+
+          // clears current points
+          // switches players
+          this.setState({
+            player2Current: 0,
+            player2Active: !this.state.player2Active,
+            player1Active: !this.state.player1Active
+          })     
+        }
+        // else adds points to current
+        else {
+
+          this.setState({
+            player2Current: this.state.player2Current + arrPos,
           })
         }
       }
-    }
-
-    // this is IF player2 is active
+    } //if gameOn
     else {
-      this.setState({
-        player2Current: arrPos
-      })
-
-      // sets dice
-      this.setState({
-        play2Current: arrPos
-      })
-
-      //if dice = 1
-      if(arrPos === 1){
-
-        // clears current points
-        // switches players
-        this.setState({
-          player2Current: 0,
-          player2Active: !this.state.player2Active,
-          player1Active: !this.state.player1Active
-        })     
-      }
-      // else adds points to current
-      else {
-
-        this.setState({
-          player2Current: this.state.player2Current + arrPos,
-          player1Total: this.state.player1Current + this.state.player1Total
-        })
-
-        // // check if >= 60, sets winner and resets counters
-        // if((this.state.player2Current + this.state.player2Total) >= 60){
-
-        //   this.setState({
-        //     player2Title: 'Winner!!!',
-        //   })
-
-        //   return null;
-        // }
-      }
-    }
+      return;
+    } 
   } //end rollDice
 
 
@@ -211,17 +162,7 @@ class App extends Component {
     // check if Player1 active
     // sets total points
     // switches players
-    if(this.state.player1Active) {
-
-      // if((this.state.player1Current + this.state.player1Total) >= 60){
-
-      //   this.setState({
-      //     player1Title: 'Winner!!!',
-      //   })
-
-      //   return null;
-      // }
-      // else {
+    if(this.state.player1Active && this.state.gameOn) {
 
         this.setState({
           player1Total: this.state.player1Total + this.state.player1Current,
@@ -231,19 +172,9 @@ class App extends Component {
         })
       // }
     }
-    // else does the opposite
+    // else if does the opposite
 
-    else {
-
-      // if((this.state.player2Current + this.state.player2Total) >= 60){
-
-      //   this.setState({
-      //     player2Title: 'Winner!!!',
-      //   })
-
-      //   return null;
-      // }     
-      // else { 
+    else if(this.state.player2Active && this.state.gameOn){
 
         this.setState({
           player2Total: this.state.player2Total + this.state.player2Current,
@@ -251,7 +182,6 @@ class App extends Component {
           player2Active: !this.state.player2Active,
           player1Active: !this.state.player1Active
         })
-    //  }
     }
   }
 
@@ -266,7 +196,8 @@ class App extends Component {
       player2Current: 0,
       player2Title: 'Player2',
       player1Active: true,
-      player2Active: false
+      player2Active: false,
+      gameOn: true
     })
   }
 
@@ -276,7 +207,6 @@ class App extends Component {
     
     return (
       <div className={css.App}>
-
 
         {/* <div className={css.Container}> */}
             
@@ -308,7 +238,9 @@ class App extends Component {
             <div className={css.DiceContainer}>
               <img className={css.Dice}
                 // src="https://i.imgur.com/EA2qvGZ.png"
-                src={this.state.dice}  
+                // src={require(`./Utils/${this.state.dice}`)}  
+                // src={require('./Utils/'+this.state.dice+'.png')}
+                src={this.state.dice}
                 alt="dice"></img>
             </div>  
 
