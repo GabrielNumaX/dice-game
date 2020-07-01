@@ -124,3 +124,138 @@ background-color: darkblue; */
     top: -350px;
     right: 30px;
   }
+
+@media (max-width: 360px) {
+
+    
+  .Player2 {
+    margin-right: 5%;
+    width: 45%;
+    height: 80%;
+  }
+
+
+  .Player2 h1{
+    font-size: 22px;
+  }
+
+  /* .Player2 h1 {
+    display: inline-block;
+    margin-top: 50px;s
+    margin-right: 10px;
+  } */
+
+  .Active2 {
+    width: 10px;
+    height: 10px;
+  }
+
+
+  .PointsPlayer2 { 
+    margin-bottom: 30px;
+    font-size: 30px;
+  }
+
+  .P2Winner {
+      text-align: center;
+  }
+
+  /* .dice-img {
+    width: 80px;
+    height: auto;
+  } */
+
+  .CurrentPoints {
+    margin: 0 auto;
+    width: 120px;
+    height: 100px;
+    background-color: rgb(236, 67, 67);
+  }
+
+  .CurrentPoints p {
+    padding-top: 8px;
+  }
+
+  .CurrentPointsPlayer2 {
+    padding: 0;
+    margin: 0;
+    font-size: 28px;
+  }
+
+  #new-game {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    color: rgb(236, 67, 67);
+    top: -280px;
+    right: 50%;
+    width: 100px;
+  }
+
+
+  #roll-dice {
+    position: relative;
+    cursor: pointer;
+    color: rgb(236, 67, 67);
+    top: -120px;
+    right: 50px;
+    width: 100px;
+
+  }
+
+  #hold {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    color: rgb(236, 67, 67);
+    top: -220px;
+    right: 50px;
+    width: 100px;
+  }
+
+  #dice-container {
+    position: relative;
+    color: rgb(236, 67, 67);
+    height: 60px;
+    width: 60px;
+    background-image: url('https://i.imgur.com/EA2qvGZ.png');
+    background-size: cover;
+    top: -350px;
+    right: 30px;
+  }
+}
+
+
+@media (max-width: 360px) {
+
+  .Player2 {
+      width: 45%;
+      height: 80%;
+  }
+  
+  .Player2 h1{
+      font-size: 22px;
+  }
+  
+  .Active2 {
+      width: 10px;
+      height: 10px;
+  }
+  
+  .PointsPlayer2 {
+      margin-bottom: 30px;
+      font-size: 30px;
+  }
+      
+  .CurrentPoints {
+      margin: 80% auto;
+      width: 80px;
+      height: 90px;
+  }
+  
+  .CurrentPoints p {
+      padding-top: 0;
+      font-size: 16px;
+  }
+
+}

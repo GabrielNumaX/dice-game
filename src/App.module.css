@@ -32,7 +32,6 @@
 } */
 
 .Controls {
-
   position: absolute;
   /* width: 10%; */
   width: auto;
@@ -93,4 +92,29 @@
   .Dice {
     height: 60px;
     width: 60px;
+  }
+
+  @media (max-width:360px) {
+
+
+  .NewGame {
+    margin-top: 20%;
+    }
+    
+    
+    .RollDice {
+      margin-top: 0;
+    }
+    
+    
+  .DiceContainer {
+    height: 40px;
+    width: 40px;
+    }
+
+    .Dice {
+      height: 40px;
+      width: 40px;
+    }
+
   }
